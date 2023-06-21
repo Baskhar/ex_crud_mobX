@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 import '../../models/listpessoamodel.dart';
 import '../../models/pessoa_model.dart';
 
@@ -20,13 +20,12 @@ class _CadastroPageState extends State<CadastroPage> {
     if (_formKey.currentState!.validate()) {
       var nome = _nomeController.text.trim();
       var cpf = _cpfController.text.trim();
-      final listPessoaModel =
-          Provider.of<ListPessoaModel>(context, listen: false);
-      //final listPessoaModel = context.watch<ListPessoaModel>();
+
+      final listPessoaModel = Modular.get<ListPessoaModel>();
       listPessoaModel.adicionarPessoa(PessoaModel(
           nome: nome,
           cpf: int.parse(cpf))); // Corrigir a chamada para listPessoaModel
-      Navigator.pop(context); // Voltar para a tela anterior (home)
+      Modular.to.pop(); // Voltar para a tela anterior (home)
     }
   }
 
